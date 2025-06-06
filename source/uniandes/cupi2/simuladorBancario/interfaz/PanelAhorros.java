@@ -63,11 +63,12 @@ public class PanelAhorros extends JPanel implements ActionListener
      * Etiqueta del saldo de cuenta de ahorros.
      */
     private JLabel etiquetaSaldoAhorros;
-
+    private JLabel etiquteIntereses;
     /**
      * Campo donde se visualiza el saldo de la cuenta de ahorros.
      */
     private JTextField txtSaldoAhorros;
+    private JTextField  txtInteresesAhorros; 
 
     /**
      * Boton para consignar en la cuenta de ahorros.
@@ -97,6 +98,11 @@ public class PanelAhorros extends JPanel implements ActionListener
         etiquetaSaldoAhorros = new JLabel( "Saldo ahorros: " );
         txtSaldoAhorros = new JTextField( 14 );
         txtSaldoAhorros.setEditable( false );
+        
+        etiquteIntereses = new JLabel("Intereses Generados");
+        txtInteresesAhorros = new JTextField( 14 );
+        txtInteresesAhorros.setEditable( false );
+        
 
         btnConsignarCuentaAhorro = new JButton( "Consignar" );
         btnConsignarCuentaAhorro.setActionCommand( CONSIGNAR_CUENTA_AHORRO );
@@ -110,7 +116,7 @@ public class PanelAhorros extends JPanel implements ActionListener
 
         JPanel panelInfo = new JPanel( );
         JPanel panelBotones = new JPanel( );
-        panelInfo.setLayout( new GridLayout( 1, 2 ) );
+        panelInfo.setLayout( new GridLayout( 2, 2, 2, 2) );
         panelInfo.setBorder( new EmptyBorder( 0, 0, 5, 0 ) );
         panelBotones.setLayout( new BorderLayout( ) );
         panelBotones.setBorder( new EmptyBorder( 0, 5, 5, 5 ) );
@@ -119,6 +125,9 @@ public class PanelAhorros extends JPanel implements ActionListener
         // Ubica los elementos en el panel
         panelInfo.add( etiquetaSaldoAhorros );
         panelInfo.add( txtSaldoAhorros );
+        panelInfo.add( etiquteIntereses );
+        panelInfo.add( txtInteresesAhorros );
+        
         panelBotones.add( btnConsignarCuentaAhorro, BorderLayout.WEST );
         panelBotones.add( new JLabel( " " ), BorderLayout.CENTER );
         panelBotones.add( btnRetirarCuentaAhorro, BorderLayout.EAST );
@@ -126,7 +135,7 @@ public class PanelAhorros extends JPanel implements ActionListener
         setLayout( new BorderLayout( ) );
         add( panelInfo, BorderLayout.CENTER );
         add( panelBotones, BorderLayout.EAST );
-        setBorder( new CompoundBorder( new EmptyBorder( 5, 3, 0, 3 ), new TitledBorder( "Cuenta de ahorros" ) ) );
+        setBorder( new CompoundBorder( new EmptyBorder( 5, 3, 0, 5 ), new TitledBorder( "Cuenta de ahorros" ) ) );
     }
 
     // -----------------------------------------------------------------
@@ -138,9 +147,10 @@ public class PanelAhorros extends JPanel implements ActionListener
      * <b>post: </b> Se actualizó la información con el saldo de la cuenta de ahorros.
      * @param pSaldo Saldo en la cuenta de ahorros del cliente. pSaldo != null.
      */
-    public void actualizarSaldoAhorros( String pSaldo )
+    public void actualizarSaldoAhorros( String pSaldo, String interes )
     {
         txtSaldoAhorros.setText( pSaldo );
+        txtInteresesAhorros.setText(interes + "%");
     }
 
     /**

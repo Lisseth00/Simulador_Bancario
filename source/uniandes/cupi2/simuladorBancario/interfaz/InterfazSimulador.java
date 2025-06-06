@@ -87,10 +87,10 @@ public class InterfazSimulador extends JFrame
     public InterfazSimulador( )
     {
         setTitle( "Simulador bancario" );
-        setSize( 600, 580 );
+        setSize( 700, 650);
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 
-        cuenta = new SimuladorBancario( "50.152.468", "Sergio López" );
+        cuenta = new SimuladorBancario( "1120.565.281", "Lisseth Rivas" );
 
         panelCDT = new PanelCDT( this );
         panelAhorros = new PanelAhorros( this );
@@ -107,7 +107,7 @@ public class InterfazSimulador extends JFrame
         JPanel panelCentral = new JPanel( );
         panelCentral.setLayout( new BorderLayout( ) );
         JPanel panelTransacciones = new JPanel( );
-        panelTransacciones.setLayout( new GridLayout( 4, 1 ) );
+        panelTransacciones.setLayout( new GridLayout( 4, 1) );
         panelTransacciones.setBorder( new CompoundBorder( new EmptyBorder( 0, 0, 5, 0 ), new TitledBorder( "Información Bancaria" ) ) );
 
         getContentPane( ).add( panelImagen, BorderLayout.NORTH );
@@ -140,13 +140,15 @@ public class InterfazSimulador extends JFrame
     {
         String nombre = cuenta.darNombre( );
         String cedula = cuenta.darCedula( );
+        double saldo = cuenta.darCuentaAhorros().darSaldo();
+        double interes = cuenta.darCuentaAhorros().darInteresMensual() * 100;
         panelDatos.actualizarNombre( nombre );
         panelDatos.actualizarCedula( "" + cedula );
         panelSaldos.actualizarMes( cuenta.darMesActual( ) );
         panelSaldos.actualizarSaldoTotal( formatearValor( cuenta.calcularSaldoTotal( ) ) );
 
         panelCorriente.actualizarSaldoCorriente( formatearValor( cuenta.darCuentaCorriente( ).darSaldo( ) ) );
-        panelAhorros.actualizarSaldoAhorros( formatearValor( cuenta.darCuentaAhorros( ).darSaldo( ) ) + "   [" + ( cuenta.darCuentaAhorros( ).darInteresMensual( ) * 100 ) + "%]" );
+        panelAhorros.actualizarSaldoAhorros( formatearValor(saldo), String.format("%.2f", interes));
         panelCDT.actualizarSaldoCDT( formatearValor( cuenta.darCDT( ).calcularValorPresente( cuenta.darMesActual( ) ) ) + "   [" + ( cuenta.darCDT( ).darInteresMensual( ) * 100 ) + "%]" );
 
     }
