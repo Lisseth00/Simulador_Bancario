@@ -142,6 +142,9 @@ public class InterfazSimulador extends JFrame
         String cedula = cuenta.darCedula( );
         double saldo = cuenta.darCuentaAhorros().darSaldo();
         double interes = cuenta.darCuentaAhorros().darInteresMensual() * 100;
+        double saldoCdt = cuenta.darCDT().darSaldoCdt();
+        double interesCdt = cuenta.darCDT().darInteresMensual() * 100;
+    
         panelDatos.actualizarNombre( nombre );
         panelDatos.actualizarCedula( "" + cedula );
         panelSaldos.actualizarMes( cuenta.darMesActual( ) );
@@ -149,8 +152,7 @@ public class InterfazSimulador extends JFrame
 
         panelCorriente.actualizarSaldoCorriente( formatearValor( cuenta.darCuentaCorriente( ).darSaldo( ) ) );
         panelAhorros.actualizarSaldoAhorros( formatearValor(saldo), String.format("%.2f", interes));
-        panelCDT.actualizarSaldoCDT( formatearValor( cuenta.darCDT( ).calcularValorPresente( cuenta.darMesActual( ) ) ) + "   [" + ( cuenta.darCDT( ).darInteresMensual( ) * 100 ) + "%]" );
-
+        panelCDT.actualizarSaldoCDT( formatearValor(saldoCdt), String.format("%.2f", interesCdt));
     }
 
     /**

@@ -48,6 +48,7 @@ public class CDT
         interesMensual = 0;
         mesApertura = 0;
     }
+    
 
     /**
      * Retorna el interés que paga el banco mensualmente por este CDT.
@@ -56,6 +57,11 @@ public class CDT
     public double darInteresMensual( )
     {
         return interesMensual;
+    }
+    
+    public double darSaldoCdt()
+    {
+    	return valorInvertido;
     }
 
     /**
