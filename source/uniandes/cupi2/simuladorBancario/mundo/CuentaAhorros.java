@@ -10,6 +10,8 @@
  */
 package uniandes.cupi2.simuladorBancario.mundo;
 
+import java.util.ArrayList;
+
 /**
  * Clase que representa la cuenta de ahorro de un cliente.
  */
@@ -23,11 +25,14 @@ public class CuentaAhorros
      * Saldo actual de la cuenta de ahorro.
      */
     private double saldo;
+    
 
     /**
      * Interés mensual que paga la cuenta de ahorro.
      */
     private double interesMensual;
+    
+    private ArrayList<Double> saldosMensuales = new ArrayList<>();
 
     // -----------------------------------------------------------------
     // Métodos
@@ -69,6 +74,7 @@ public class CuentaAhorros
     public void consignarMonto( double pMonto )
     {
         saldo = saldo + pMonto;
+        registrarSaldo();
     }
 
     /**
@@ -79,6 +85,7 @@ public class CuentaAhorros
     public void retirarMonto( double pMonto )
     {
         saldo = saldo - pMonto;
+        registrarSaldo();
     }
 
     /**
@@ -88,5 +95,44 @@ public class CuentaAhorros
     public void actualizarSaldoPorPasoMes( )
     {
         saldo = saldo + ( saldo * interesMensual );
+        registrarSaldo();
+    }
+    
+    public double calcularPromedio(int mesInicio, int mesFin)
+    {
+        double suma = 0.0;
+        int cantidadMeses = 0;
+
+        for (int i = mesInicio - 1; i < mesFin && i < saldosMensuales.size(); i++) {
+            suma += saldosMensuales.get(i);
+            cantidadMeses++;
+        }
+
+        return cantidadMeses > 0 ? suma / cantidadMeses : 0.0;
+    }
+    
+    
+  
+
+    
+    public void registrarSaldo() {
+        saldosMensuales.add(saldo); // Guarda el saldo actual al final de la listaAdd commentMore actions
+    }
+    
+    
+    
+    
+    /**
+     * Simula el saldo que tendría esta cuenta dentro de cierta cantidad de meses, sin afectar el saldo real.
+     * @param meses Número de meses en el futuro a simular. Debe ser >= 0.
+     * @return Saldo simulado dentro de los meses especificados.
+     */
+    public double simularSaldoMeses(int meses)
+    {
+        double saldoSimulado = saldo;
+        for (int i = 0; i < meses; i++) {
+            saldoSimulado += saldoSimulado * interesMensual;
+        }
+        return saldoSimulado;
     }
 }
