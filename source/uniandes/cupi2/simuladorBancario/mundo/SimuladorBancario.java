@@ -194,6 +194,8 @@ public class SimuladorBancario
     {
         mesActual += 1;
         ahorros.actualizarSaldoPorPasoMes( );
+     // Registrar saldo en cada cuentaAdd commentMore actions
+        ahorros.registrarSaldo();
     }
 
     /**
@@ -206,14 +208,24 @@ public class SimuladorBancario
         double valorCierreCDT = inversion.cerrar( mesActual );
         corriente.consignarMonto( valorCierreCDT );
     }
+    
+    public double PromedioAhorros(int mesInicio, int mesFin) {
+        return ahorros.calcularPromedio(mesInicio, mesFin);
+    }
 
     /**
      * Retorna el resultado de la extensión 1.
      * @return Respuesta 1.
      */
     public String metodo1( )
-    {
-        return "Respuesta 1";
+    { 
+    	int mesInicio = 1;
+        int mesFin = mesActual;
+
+        double promedioAhorros = PromedioAhorros(mesInicio, mesFin);
+        
+        return "Saldo promedio de la cuenta de ahorros entre los meses " +
+               mesInicio + " y " + mesFin + ": $" + String.format("%.2f", promedioAhorros);
     }
 
     /**

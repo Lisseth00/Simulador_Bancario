@@ -10,6 +10,8 @@
  */
 package uniandes.cupi2.simuladorBancario.mundo;
 
+import java.util.ArrayList;
+
 /**
  * Clase que representa un CDT.
  */
@@ -33,6 +35,8 @@ public class CDT
      * Mes de apertura del CDT.
      */
     private int mesApertura;
+    
+    private ArrayList<Double> historialSaldos = new ArrayList<>();
 
     // -----------------------------------------------------------------
     // Métodos
@@ -47,7 +51,9 @@ public class CDT
         valorInvertido = 0;
         interesMensual = 0;
         mesApertura = 0;
+        registrarSaldo();
     }
+    
 
     /**
      * Retorna el interés que paga el banco mensualmente por este CDT.
@@ -56,6 +62,11 @@ public class CDT
     public double darInteresMensual( )
     {
         return interesMensual;
+    }
+    
+    public double darSaldoCdt()
+    {
+    	return valorInvertido;
     }
 
     /**
@@ -96,5 +107,23 @@ public class CDT
         interesMensual = 0;
         mesApertura = 0;
         return valorCierre;
+    }
+    
+    public double calcularSaldoPromedio(int mesInicio, int mesFin) {
+        // Validamos que los índices estén dentro del rango
+        if (mesInicio < 1 || mesFin > historialSaldos.size() || mesInicio > mesFin) {
+            return 0;
+        }
+
+        double suma = 0;Add commentMore actions
+        for (int i = mesInicio - 1; i < mesFin; i++) {
+            suma += historialSaldos.get(i);
+        }
+        return suma / (mesFin - mesInicio + 1);
+    }
+
+    
+    public void registrarSaldo() {
+        historialSaldos.add(valorInvertido); // Guarda el saldo actual al final de la lista
     }
 }
