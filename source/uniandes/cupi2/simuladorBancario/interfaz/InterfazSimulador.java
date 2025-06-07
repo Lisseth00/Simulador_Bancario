@@ -142,7 +142,7 @@ public class InterfazSimulador extends JFrame
         String cedula = cuenta.darCedula( );
         double saldo = cuenta.darCuentaAhorros().darSaldo();
         double interes = cuenta.darCuentaAhorros().darInteresMensual() * 100;
-        double saldoCdt = cuenta.darCDT().darSaldoCdt();
+        double saldoCdt = cuenta.darCDT().calcularValorPresente(cuenta.darMesActual());
         double interesCdt = cuenta.darCDT().darInteresMensual() * 100;
     
         panelDatos.actualizarNombre( nombre );
