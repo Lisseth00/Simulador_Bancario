@@ -115,7 +115,7 @@ public class CDT
             return 0;
         }
 
-        double suma = 0;Add commentMore actions
+        double suma = 0; 
         for (int i = mesInicio - 1; i < mesFin; i++) {
             suma += historialSaldos.get(i);
         }

@@ -78,7 +78,7 @@ public class SimuladorBancario
      */
     public String darNombre( )
     {
-        return nombre;
+        return nombre; 
     }
 
     /**
@@ -194,8 +194,9 @@ public class SimuladorBancario
     {
         mesActual += 1;
         ahorros.actualizarSaldoPorPasoMes( );
-     // Registrar saldo en cada cuentaAdd commentMore actions
+     // Agregamos el metodo registarSaldo al metodo avanzarMes
         ahorros.registrarSaldo();
+        ahorros.limpiarTransacciones(); // agregamos el metodo para limpiar las transacciones al final de mes.
     }
 
     /**
@@ -234,6 +235,8 @@ public class SimuladorBancario
      */
     public String metodo2( )
     {
-        return "Respuesta 2";
+        String resumen = "Resumen de transaciones del mes" + mesActual + ":\n";
+        resumen += "\nCuenta de Ahorros:\n" + ahorros.resumenTransacciones();
+        return resumen;
     }
 }

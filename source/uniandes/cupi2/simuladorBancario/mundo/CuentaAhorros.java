@@ -11,7 +11,7 @@
 package uniandes.cupi2.simuladorBancario.mundo;
 
 import java.util.ArrayList;
-
+import java.util.ArrayList; // Se importa el ArrayList para almacenar los saldos mensuales
 /**
  * Clase que representa la cuenta de ahorro de un cliente.
  */
@@ -32,8 +32,15 @@ public class CuentaAhorros
      */
     private double interesMensual;
     
-    private ArrayList<Double> saldosMensuales = new ArrayList<>();
-
+    /**
+     * Lista que almacena el saldo del mes actual. 
+     */
+    private ArrayList<Double> saldosMensuales = new ArrayList<>(); // objeto para alamcenar el saldo de la cuenta cada en los diferentes meses
+    
+    /**
+     * Lista que almacena las transacciones realizadas durante el mes actual.
+     */
+    private ArrayList<String> transaccionesMensuales = new ArrayList<>(); // objeto que alamcena las transacciones mensuales
     // -----------------------------------------------------------------
     // Métodos
     // -----------------------------------------------------------------
@@ -75,6 +82,7 @@ public class CuentaAhorros
     {
         saldo = saldo + pMonto;
         registrarSaldo();
+        transaccionesMensuales.add("Consignación: $" + String.format("%.2f", pMonto));
     }
 
     /**
@@ -86,6 +94,7 @@ public class CuentaAhorros
     {
         saldo = saldo - pMonto;
         registrarSaldo();
+        transaccionesMensuales.add("Retiro: $" + String.format("%.2f", pMonto));
     }
 
     /**
@@ -94,8 +103,10 @@ public class CuentaAhorros
      */
     public void actualizarSaldoPorPasoMes( )
     {
-        saldo = saldo + ( saldo * interesMensual );
-        registrarSaldo();
+    	double interes = saldo  * interesMensual;
+        saldo = saldo + interes;
+        registrarSaldo(); // utilizamos el metodo para agregar el saldo actual
+        transaccionesMensuales.add("Interés mensual aplicado: $" + String.format("%.2f", interes));
     }
     
     public double calcularPromedio(int mesInicio, int mesFin)
@@ -112,8 +123,34 @@ public class CuentaAhorros
     }
     
     
-  
+    /**
+     * Retorna un resumen de las transacciones realizadas en el mes actual.
+     * @return Cadena con el resumen de transacciones.
+     */
+    public String resumenTransacciones()
+    {
+        if (transaccionesMensuales.isEmpty()) {
+            return "No se han realizado transacciones este mes.";
+        }
 
+        StringBuilder resumen = new StringBuilder();
+        for (String transaccion : transaccionesMensuales) {
+            resumen.append(transaccion).append("\n");
+        }
+        return resumen.toString();
+    }
+
+    /**
+     * Limpia la lista de transacciones del mes actual.
+     */
+    public void limpiarTransacciones()
+    {
+        transaccionesMensuales.clear(); // para eliminar todos elementos de la transacción actual antes de que pase al siguiente mes
+    }
+     
+    /**
+     * Agregar el saldo del mes actual.
+     */
     
     public void registrarSaldo() {
         saldosMensuales.add(saldo); // Guarda el saldo actual al final de la listaAdd commentMore actions
